@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 class KeyboardButton(
     val text: String,
-    val request_contact: Boolean?,
-    val request_location: Boolean?,
-    val request_poll: KeyboardButtonPollType?
+    val request_contact: Boolean? = null,
+    val request_location: Boolean? = null,
+    val request_poll: KeyboardButtonPollType? = null
 ) {
 }

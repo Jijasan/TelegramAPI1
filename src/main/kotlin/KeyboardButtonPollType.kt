@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class KeyboardButtonPollType(
-    val type: String?
+    val type: String? = null
 ) {
 }

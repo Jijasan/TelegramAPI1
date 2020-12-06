@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 class ReplyKeyboardMarkup(
     val keyboard: List<List<KeyboardButton>>,
-    val resize_keyboard: Boolean?,
-    val one_time_keyboard: Boolean?,
-    val selective: Boolean?
+    val resize_keyboard: Boolean? = null,
+    val one_time_keyboard: Boolean? = null,
+    val selective: Boolean? = null
 ) {
 
 }
