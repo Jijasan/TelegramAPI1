@@ -39,11 +39,11 @@ class Bot(var token: String) {
         chat: Int, text: String, parse_mode: String? = null, entities: List<MessageEntity>? = null,
         disable_web_page_preview: Boolean? = null, disable_notification: Boolean? = null,
         reply_to_message_id: Int? = null, allow_sending_without_reply: Boolean? = null,
-        reply_markup: InlineKeyboardMarkup? = null
+        reply_markup: ReplyKeyboardMarkup? = null
     ) {
         val url = "https://api.telegram.org/bot" + token
         URL(
-            url + "/sendMessage?chat_id=" + chat + "&text=" + text.normalise()
+            url + "/sendMessage?chat_id=" + chat + "&text=" + text
                     + if (parse_mode != null) "&parse_mode=" + parse_mode else ""
                     + if (entities != null) "&entities=" + entities else ""
                     + if (disable_web_page_preview != null) "&disable_web_page_preview=" + disable_web_page_preview else ""
@@ -57,17 +57,6 @@ class Bot(var token: String) {
 
     fun onCommand(command: String, functor: suspend (Message, String?) -> Unit){
         commands += Pair(command, functor)
-    }
-
-    private fun String.normalise(): String{
-        var ans = ""
-        this.forEach { c ->
-            if (c == ' ')
-                ans = ans + "%20"
-            else
-                ans = ans + c
-        }
-        return ans
     }
 
 }
