@@ -43,7 +43,7 @@ class Bot(var token: String) {
     ) {
         val url = "https://api.telegram.org/bot" + token
         URL(
-            url + "/sendMessage?chat_id=" + chat + "&text=" + text
+            url + "/sendMessage?chat_id=" + chat + "&text=" + text.normalise()
                     + if (parse_mode != null) "&parse_mode=" + parse_mode else ""
                     + if (entities != null) "&entities=" + entities else ""
                     + if (disable_web_page_preview != null) "&disable_web_page_preview=" + disable_web_page_preview else ""
@@ -57,6 +57,17 @@ class Bot(var token: String) {
 
     fun onCommand(command: String, functor: suspend (Message, String?) -> Unit){
         commands += Pair(command, functor)
+    }
+
+    private fun String.normalise(): String{
+        var ans = ""
+        this.forEach { c ->
+            if (c == ' ')
+                ans = ans + "%20"
+            else
+                ans = ans + c
+        }
+        return ans
     }
 
 }
