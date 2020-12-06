@@ -3,6 +3,7 @@ package com.github.KS2003.telegramAPI
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.net.URL
 import kotlin.concurrent.thread
@@ -50,7 +51,7 @@ class Bot(var token: String) {
                     + if (reply_to_message_id != null) "&reply_to_message_id=" + reply_to_message_id else ""
                     + if (allow_sending_without_reply != null)
                         "&allow_sending_without_reply=" + allow_sending_without_reply else ""
-                    + if (reply_markup != null) "&reply_markup=" + reply_markup else ""
+                    + if (reply_markup != null) "&reply_markup=" + Json.encodeToString(reply_markup) else ""
         ).readText()
     }
 
