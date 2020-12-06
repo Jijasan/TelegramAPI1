@@ -10,7 +10,7 @@ class InlineKeyboardButton(
     val callback_data: String? = null,
     val switch_inline_query: String? = null,
     val switch_inline_query_current_chat: String? = null,
-    val callback_game: CallbackGame,
+    val callback_game: CallbackGame = CallbackGame(),
     val pay: Boolean? = null
 ) {
 }
