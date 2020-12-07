@@ -45,9 +45,9 @@ class Bot(var token: String) {
         val url = "https://api.telegram.org/bot" + token
 
         URL(
-            url + "/sendMessage?chat_id=" + chat + "&text=" + text.url()
-                    + if (parse_mode != null) "&parse_mode=" + parse_mode.url() else ""
-                    + if (entities != null) "&entities=" + Json.encodeToString(entities).url() else ""
+            url + "/sendMessage?chat_id=" + chat + "&text=" + text
+                    + if (parse_mode != null) "&parse_mode=" + parse_mode else ""
+                    + if (entities != null) "&entities=" + Json.encodeToString(entities) else ""
                     + if (disable_web_page_preview != null)
                         "&disable_web_page_preview=" + disable_web_page_preview.toString() else ""
                     + if (disable_notification != null)
@@ -56,11 +56,9 @@ class Bot(var token: String) {
                         "&reply_to_message_id=" + reply_to_message_id.toString() else ""
                     + if (allow_sending_without_reply != null)
                         "&allow_sending_without_reply=" + allow_sending_without_reply.toString() else ""
-                    + if (reply_markup != null) "&reply_markup=" + Json.encodeToString(reply_markup).url() else ""
+                    + if (reply_markup != null) "&reply_markup=" + Json.encodeToString(reply_markup) else ""
         ).readText()
     }
-
-    private fun String.url() = URLEncoder.encode(this)
 
     fun onCommand(command: String, functor: suspend (Message, String?) -> Unit){
         commands += Pair(command, functor)
