@@ -6,6 +6,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.net.URL
+import java.net.URLEncoder
 import kotlin.concurrent.thread
 import kotlin.math.max
 
@@ -42,8 +43,9 @@ class Bot(var token: String) {
         reply_markup: ReplyKeyboardMarkup? = null
     ) {
         val url = "https://api.telegram.org/bot" + token
+
         URL(
-            url + "/sendMessage?chat_id=" + chat + "&text=" + text
+            URLEncoder.encode(url + "/sendMessage?chat_id=" + chat + "&text=" + text
                     + if (parse_mode != null) "&parse_mode=" + parse_mode else ""
                     + if (entities != null) "&entities=" + entities else ""
                     + if (disable_web_page_preview != null) "&disable_web_page_preview=" + disable_web_page_preview else ""
@@ -52,6 +54,7 @@ class Bot(var token: String) {
                     + if (allow_sending_without_reply != null)
                         "&allow_sending_without_reply=" + allow_sending_without_reply else ""
                     + if (reply_markup != null) "&reply_markup=" + Json.encodeToString(reply_markup) else ""
+            )
         ).readText()
     }
 
