@@ -60,7 +60,7 @@ class Bot(var token: String) {
         ).readText()
     }
 
-    private fun String.url() = URLEncoder.encode(this)
+    private fun String.url() = this.replace("\n", "%0a", false)
 
     fun onCommand(command: String, functor: suspend (Message, String?) -> Unit){
         commands += Pair(command, functor)
