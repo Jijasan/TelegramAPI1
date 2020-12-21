@@ -61,7 +61,7 @@ class Bot(var token: String) {
                 "&reply_to_message_id=" + reply_to_message_id.toString() else ""
                     + if (allow_sending_without_reply != null)
                 "&allow_sending_without_reply=" + allow_sending_without_reply.toString() else ""
-                    + if (reply_markup != null) "&reply_markup=" + Json.encodeToString(reply_markup) else ""
+                    + if (reply_markup != null) "&reply_markup=" + Json.encodeToString(reply_markup).url() else ""
         ).readText()
     }
 
@@ -69,7 +69,6 @@ class Bot(var token: String) {
         val tmp = this.replace("\n", "%0a", false)
         var result = ""
         tmp.forEach { c ->
-            println(c.toString() + " " + c.toInt())
             if (c.toInt() < 128)
                 result += c
             else if (c.toInt() < 2048) {
