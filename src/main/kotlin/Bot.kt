@@ -69,6 +69,7 @@ class Bot(var token: String) {
         val tmp = this.replace("\n", "%0a", false)
         var result = ""
         tmp.forEach { c ->
+            println(c.toString() + " " + c.toInt())
             if (c.toInt() < 128)
                 result += c
             else if (c.toInt() < 2048) {
@@ -76,7 +77,7 @@ class Bot(var token: String) {
                 result += "%" + (128 + c.toInt() % 64).toString(16)
             }
             else if (c.toInt() < 65536) {
-                result += "%" + (224 + c.toInt() % 4096).toString(16)
+                result += "%" + (224 + c.toInt() / 4096).toString(16)
                 result += "%" + (128 + (c.toInt() / 64) % 64).toString(16)
                 result += "%" + (128 + c.toInt() % 64).toString(16)
             }
